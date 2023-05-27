@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
-
+import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,11 +15,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { makeStyles } from '@material-ui/core'
 
-import Copyright from '../components/Elements/Copyright';
-
-import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -30,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    padding: '0, 10px',
+    padding: '0 10px',
   },
 }));
 
@@ -45,8 +41,6 @@ function Signup(props) {
   const [pwHelper, setPwHelper] = useState('');
   const [emailHelper, setEmailHelper] = useState('');
   const [checked, setChecked] = useState(false);
-
-
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -63,19 +57,18 @@ function Signup(props) {
       const token = mutationResponse.data.addUser.token;
       Auth.login(token);
     } catch (error) {
-      setEmailState(false)
-      setEmailHelper('Email already exists. Please try logging in.')
+      setEmailState(false);
+      setEmailHelper('Email already exists. Please try logging in.');
     }
   };
 
   const handleChangePw = (event) => {
     const { name, value } = event.target;
     if (value.length > 8) {
-      setPasswordState(true)
+      setPasswordState(true);
     } else {
-      setPasswordState(false)
-      setPwHelper('Password must be at least 8 characters.')
-
+      setPasswordState(false);
+      setPwHelper('Password must be at least 8 characters.');
     }
 
     setFormState({
@@ -86,12 +79,12 @@ function Signup(props) {
 
   const handleChangeEmail = (event) => {
     const { name, value } = event.target;
-    const validEmail = new RegExp(/^([a-zA-Z0-9_.-]+)@([\da-zA-Z.-]+)\.([a-zA-Z.]{2,6})$/)
+    const validEmail = new RegExp(/^([a-zA-Z0-9_.-]+)@([\da-zA-Z.-]+)\.([a-zA-Z.]{2,6})$/);
     if (validEmail.test(value)) {
-      setEmailState(true)
+      setEmailState(true);
     } else {
-      setEmailState(false)
-      setEmailHelper('Please enter a valid email')
+      setEmailState(false);
+      setEmailHelper('Please enter a valid email');
     }
     setFormState({
       ...formState,
@@ -102,9 +95,18 @@ function Signup(props) {
   return (
     <Container className={classes.container}>
       <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs" sx={{
-          backgroundColor: 'white', marginTop: '100px', marginBottom: '250px',
-        }}>
+        <Container
+          component="main"
+          maxWidth="xs"
+          sx={{
+            backgroundColor: 'white',
+            marginTop: '100px',
+            marginBottom: '250px',
+            padding: '20px',
+            borderRadius: '8px',
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+          }}
+        >
           <CssBaseline />
           <Box
             sx={{
@@ -120,7 +122,6 @@ function Signup(props) {
             <Typography component="h1" variant="h5">
               Sign up
             </Typography>
-
             <Box component="form" noValidate onSubmit={handleFormSubmit} sx={{ mt: 1 }}>
               <TextField
                 required
@@ -147,20 +148,35 @@ function Signup(props) {
                 error={!passwordState}
                 helperText={pwHelper}
               />
-
-              <Link to='/legal'>Terms</Link>
-
               <FormControlLabel
-                control={<Checkbox value="legal" color="primary" />}
-                label="I confirm that I have read the legal documents and agree to the terms."
-                checked={checked}
-                onChange={() => setChecked(!checked)}
+                control={
+                  <Checkbox
+                    value="legal"
+                    color="primary"
+                    checked={checked}
+                    onChange={() => setChecked(!checked)}
+                  />
+                }
+                label={
+                  <Typography variant="body2">
+                    I confirm that I have read the legal documents and agree to the terms.{' '}
+                    <Link to="/legal">Terms</Link>
+                  </Typography>
+                }
               />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  backgroundColor: '#18344A',
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: '#0F253D',
+                  },
+                }}
                 disabled={!(emailState && passwordState && checked)}
               >
                 Sign Up
@@ -172,13 +188,12 @@ function Signup(props) {
                   </Link>
                 </Grid>
               </Grid>
-
             </Box>
           </Box>
-          <Copyright sx={{ mt: 5 }} />
         </Container>
       </ThemeProvider>
     </Container>
-  )
+  );
 }
+
 export default Signup;

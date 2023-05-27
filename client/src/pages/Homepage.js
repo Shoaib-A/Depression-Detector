@@ -2,14 +2,13 @@ import React from 'react';
 //mui
 import { Container, makeStyles, Typography, CardActions, Box, CardContent, CardMedia } from '@material-ui/core';
 import Button from '@mui/material/Button';
-import jumbo from '../assets/images/jumbo.jpg';
-import jumbo2 from '../assets/images/jumbo2.jpg';
+import jumbo from '../assets/images/jumbo.jpeg';
+import jumbo2 from '../assets/images/jumbo2.jpeg';
 import { Grid } from '@mui/material';
 import Copyright from '../components/Elements/Copyright';
 
 //routes
 import { Link } from 'react-router-dom'
-import AudioRecorder from '../components/AudioRecorder';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -50,11 +49,13 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     img: {
-        aspectRatio: 5 / 5,
+        aspectRatio: '1/1', // Adjust the aspectRatio to make the image smaller or larger
+        width: '100%',
+        objectFit: 'cover',
         [theme.breakpoints.down('sm')]: {
-            display: 'none',
+          display: 'none',
         },
-    },
+      },
     card: {
         backgroundColor: '#255070',
         display: 'flex',
@@ -114,13 +115,13 @@ function Homepage() {
                 <Grid item xs={12} md={4}>
                     <CardContent className={classes.card}>
                         <Typography className={classes.text} variant='body1'>
-                            Use Mental Health Check to check-in with yourself and how you're feeling.
+                            Use Depression Detector to check-in with yourself and how you're feeling.
                         </Typography>
                         <Typography className={classes.text} variant='body1'>
-                            Mental Health Check uses questions from mental illness screenings, but with Yes/No questions.
+                            Depression Detector uses questions from mental illness screenings, but with Yes/No questions.
                         </Typography>
                         <Typography className={classes.text} variant='body1'>
-                            Instead of screening for a diagnosis, Mental Health Check uses those questions to help the user identify their feelings.
+                            Instead of screening for a diagnosis, Depression Detector uses those questions to help the user identify their feelings.
                         </Typography>
                     </CardContent>
                 </Grid>
@@ -137,7 +138,7 @@ function Homepage() {
                                 Take the Depression Test
                             </Typography>
                             <Typography className={classes.cardText}>
-                                Select from our question categories and begin taking your customized mental health check quiz!
+                                Select from our question categories and begin taking your customized Depression Detector quiz!
                             </Typography>
                         </CardContent>
                         <CardActions className={classes.cardButtons}>
@@ -162,7 +163,7 @@ function Homepage() {
                 </Grid>
             </Grid>
             <Box>
-                <Copyright sx={{ color: 'white', marginTop: '50px', fontSize: '20px' }} />
+                <Copyright sx={{ color: 'white', marginTop: '300px', fontSize: '24px' }} />
             </Box>
         </Container>
 
